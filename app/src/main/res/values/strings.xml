@@ -5,4 +5,8 @@
     <string name="cb2">You are in a bar?</string>
     <string name="email">Enter email:</string>
     <string name="text">Write message:</string>
+    <string name="send">Send</string>
+    <string name="girlEr">What are ypu doing? You have the girlfriend</string>
+    <string name="barEr">Sorry, but you in wrong condition</string>
+    <string name="bothEr">At the moment, it is forbidden to you to do it</string>
 </resources>

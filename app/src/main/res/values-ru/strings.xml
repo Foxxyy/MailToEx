@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cb2">Вы в баре?</string>
+    <string name="email">Введите email:</string>
+    <string name="text">Введите сообщение:</string>
+    <string name="cb1">У вас есть девушка?</string>
+    <string name="barEr">Прости, но ты не в том состоянии</string>
+    <string name="bothEr">В данный момент тебе вообще запрещено делать это.</string>
+    <string name="girlEr">Что ты делаешь? У тебя же есть девушка</string>
+    <string name="send">Отправить</string>
+</resources>
