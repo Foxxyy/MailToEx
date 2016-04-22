@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name" translatable="false">MailToEx</string>
+    <string name="description">Write message to your Ex</string>
+    <string name="cb1">Do you have a girlfriend?</string>
+    <string name="cb2">You are in a bar?</string>
+    <string name="email">Enter email:</string>
+    <string name="text">Write message:</string>
+</resources>
