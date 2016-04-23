@@ -8,4 +8,10 @@
     <string name="bothEr">В данный момент тебе вообще запрещено делать это.</string>
     <string name="girlEr">Что ты делаешь? У тебя же есть девушка</string>
     <string name="send">Отправить</string>
+    <string name="loadBut">Выбрать</string>
+    <string name="Filtr">Выберите модификацию:</string>
+    <string name="Car">Автомобиль</string>
+    <string name="Dubai">Дубаи</string>
+    <string name="Girl">Девушка</string>
+    <string name="Without">Без модификаций</string>
 </resources>
