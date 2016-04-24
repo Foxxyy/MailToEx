@@ -8,7 +8,7 @@
     <string name="bothEr">В данный момент тебе вообще запрещено делать это.</string>
     <string name="girlEr">Что ты делаешь? У тебя же есть девушка</string>
     <string name="send">Отправить</string>
-    <string name="loadBut">Выбрать</string>
+    <string name="loadBut">Камера</string>
     <string name="Filtr">Выберите модификацию:</string>
     <string name="Car">Автомобиль</string>
     <string name="Dubai">Дубаи</string>
@@ -17,4 +17,5 @@
     <string name="takePic">Добавить изображение</string>
     <string name="delPic">Отменить добавление</string>
     <string name="Subject">От чистого сердца с любовью</string>
+    <string name="ok">Отправляем!</string>
 </resources>

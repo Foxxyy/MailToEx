@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     Bitmap bitmap;
 
     public void send(View view) {
-        String text = "All OK";
+        String text = getString(R.string.ok);
         EditText textOfMes = (EditText) findViewById(R.id.mesText);
         EditText emailOfMes = (EditText) findViewById(R.id.mesSubject);
         ImageView imV = (ImageView) findViewById(R.id.picture);
@@ -68,34 +68,36 @@ public class MainActivity extends AppCompatActivity {
             text = getString(R.string.bothEr);
             mes.setTextColor(Color.RED);
         }
+        if (!cbb.isChecked() && !cbg.isChecked()) {
+
+            final Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:"));
+            try {
+                intent.putExtra(Intent.EXTRA_TEXT, textOfMes.getText());
+                intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, "Title", null)));
+            } catch (Exception e) {
+
+            }
+            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.Subject));
+            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailOfMes.getText().toString()});
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
+        }
         mes.setText(text);
-
-        final Intent intent = new Intent(Intent.ACTION_SENDTO);
-        intent.setData(Uri.parse("mailto:"));
-        try {
-            intent.putExtra(Intent.EXTRA_TEXT, textOfMes.getText());
-            intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, "Title", null)));
-        } catch (Exception e) {
-
-        }
-        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.Subject));
-        intent.putExtra(Intent.EXTRA_EMAIL, new String [] { emailOfMes.getText().toString() });
-        if(intent.resolveActivity(getPackageManager()) != null){
-            startActivity(intent);
-        }
     }
 
     Boolean flagPhoto = false;
     public void addPhoto(View view) {
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.photo);
         ViewGroup.LayoutParams params = rl.getLayoutParams();
-        //Animation slideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
-        //Animation slideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
+        Animation slideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
+        Animation slideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
 
         Button add = (Button) findViewById(R.id.phBut);
 
         if(rl.getVisibility()==View.INVISIBLE){
-            //rl.startAnimation(slideDown);
+            rl.startAnimation(slideDown);
             rl.setVisibility(View.VISIBLE);
             params.height = -2;
             params.width = -1;
@@ -105,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
             RadioGroup rg = (RadioGroup) findViewById(R.id.radGr);
             rg.check(R.id.without);
         } else {
-            //rl.startAnimation(slideUp);
+            rl.startAnimation(slideUp);
             rl.setVisibility(View.INVISIBLE);
             params.height = 0;
             rl.setLayoutParams(params);
@@ -115,35 +117,7 @@ public class MainActivity extends AppCompatActivity {
             iv.setImageResource(R.drawable.camera);
         }
     }
-/*
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        ImageView picture = (ImageView) findViewById(R.id.picture);
-        RelativeLayout rl = (RelativeLayout) findViewById(R.id.photo);
-        ViewGroup.LayoutParams params = rl.getLayoutParams();
-        ViewGroup.LayoutParams params2 = picture.getLayoutParams();
 
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-
-            if (imageBitmap.getHeight() < params2.height) {
-                params2.height = params.height;
-                picture.setLayoutParams(params2);
-            }
-
-            picture.setImageBitmap(imageBitmap);
-        }
-    }
-
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-    public void loadImage(View view){
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        }
-    }*/
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     @Override

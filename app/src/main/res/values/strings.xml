@@ -9,7 +9,7 @@
     <string name="girlEr">What are ypu doing? You have the girlfriend</string>
     <string name="barEr">Sorry, but you in wrong condition</string>
     <string name="bothEr">At the moment, it is forbidden to you to do it</string>
-    <string name="loadBut">Load</string>
+    <string name="loadBut">Camera</string>
     <string name="Filtr">Select modifications:</string>
     <string name="Without">without mods</string>
     <string name="Girl">girl</string>
@@ -18,4 +18,5 @@
     <string name="takePic">Add picture</string>
     <string name="delPic">Cancel Adding</string>
     <string name="Subject">From my heart with love</string>
+    <string name="ok">Sending!</string>
 </resources>
