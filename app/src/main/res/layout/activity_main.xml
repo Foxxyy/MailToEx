@@ -39,12 +39,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            android:hint="@string/email"/>
+            android:hint="@string/email"
+            android:id="@+id/mesSubject"/>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/text" />
+            android:hint="@string/text"
+            android:id="@+id/mesText"/>
 
         <Button
             android:layout_width="150dp"
@@ -54,8 +56,8 @@
             android:id="@+id/phBut"/>
 
         <RelativeLayout android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
+            android:layout_height="0dp"
+            android:visibility="invisible"
             android:id="@+id/photo">
 
             <LinearLayout android:layout_width="wrap_content"
@@ -82,37 +84,42 @@
                 <RadioGroup
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp">
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/radGr">
 
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/Without"/>
+                        android:text="@string/Without"
+                        android:id="@+id/without"/>
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/Car"/>
+                        android:text="@string/Car"
+                        android:id="@+id/car"/>
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/Girl"/>
+                        android:text="@string/Girl"
+                        android:id="@+id/girl"/>
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/Dubai"/>
+                        android:text="@string/Dubai"
+                        android:id="@+id/dubai"/>
 
                 </RadioGroup>
             </LinearLayout>
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/image"
                 android:layout_toRightOf="@id/phSettings"
                 android:layout_toEndOf="@id/phSettings"
                 android:scaleType="fitStart"
+                android:src="@drawable/camera"
                 android:id="@+id/picture"/>
         </RelativeLayout>
 
@@ -122,18 +129,17 @@
             android:orientation="vertical"
             android:layout_weight="2.17">
 
-            <Button
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:text="@string/send"
-                android:onClick="send"/>
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/userMessages"
                 android:layout_marginTop="5dp"
                 android:textSize="20sp"/>
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="@string/send"
+                android:onClick="send" />
         </LinearLayout>
 
     </LinearLayout>

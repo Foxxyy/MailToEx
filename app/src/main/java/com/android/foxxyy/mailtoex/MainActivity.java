@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Environment;
@@ -18,11 +19,13 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -40,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void send(View view) {
         String text = "All OK";
+        EditText textOfMes = (EditText) findViewById(R.id.mesText);
+        EditText emailOfMes = (EditText) findViewById(R.id.mesSubject);
         TextView mes = (TextView) findViewById(R.id.userMessages);
         CheckBox cbg = (CheckBox) findViewById(R.id.cbg);
         CheckBox cbb = (CheckBox) findViewById(R.id.cbb);
@@ -58,6 +63,16 @@ public class MainActivity extends AppCompatActivity {
             mes.setTextColor(Color.RED);
         }
         mes.setText(text);
+
+        final Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:"));
+        intent.putExtra(Intent.EXTRA_TEXT, textOfMes.getText());
+        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.Subject));
+        intent.putExtra(Intent.EXTRA_EMAIL, emailOfMes.getText());
+        intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:" + mCurrentPhotoPath));
+        if(intent.resolveActivity(getPackageManager()) != null){
+            startActivity(intent);
+        }
     }
 
     Boolean flagPhoto = false;
@@ -77,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
             rl.setLayoutParams(params);
             add.setText(getString(R.string.delPic));
             flagPhoto = true;
+            RadioGroup rg = (RadioGroup) findViewById(R.id.radGr);
+            rg.check(R.id.without);
         } else {
             //rl.startAnimation(slideUp);
             rl.setVisibility(View.INVISIBLE);
@@ -84,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
             rl.setLayoutParams(params);
             add.setText(getString(R.string.takePic));
             flagPhoto = false;
+            ImageView iv = (ImageView) findViewById(R.id.picture);
+            iv.setImageResource(R.drawable.camera);
         }
     }
 /*
@@ -123,6 +142,10 @@ public class MainActivity extends AppCompatActivity {
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.photo);
         ViewGroup.LayoutParams params = rl.getLayoutParams();
         ViewGroup.LayoutParams params2 = picture.getLayoutParams();
+        RadioButton car = (RadioButton) findViewById(R.id.car);
+        RadioButton dubai = (RadioButton) findViewById(R.id.dubai);
+        RadioButton girl = (RadioButton) findViewById(R.id.girl);
+        RadioButton witout = (RadioButton) findViewById(R.id.without);
 
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             // Get the dimensions of the View
@@ -144,7 +167,22 @@ public class MainActivity extends AppCompatActivity {
             bmOptions.inSampleSize = scaleFactor;
             bmOptions.inPurgeable = true;
 
-            Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+            Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions).copy(Bitmap.Config.ARGB_8888, true);
+            Bitmap filtr = BitmapFactory.decodeResource(getResources(), R.drawable.car).copy(Bitmap.Config.ARGB_8888, true);
+            if (!witout.isChecked()) {
+                if (car.isChecked()) {
+                    filtr = BitmapFactory.decodeResource(getResources(), R.drawable.car, bmOptions).copy(Bitmap.Config.ARGB_8888, true);
+                }
+                if (girl.isChecked()) {
+                    filtr = BitmapFactory.decodeResource(getResources(), R.drawable.girl, bmOptions).copy(Bitmap.Config.ARGB_8888, true);
+                }
+                if (dubai.isChecked()) {
+                    filtr = BitmapFactory.decodeResource(getResources(), R.drawable.dubai, bmOptions).copy(Bitmap.Config.ARGB_8888, true);
+                }
+                Canvas comboImage = new Canvas(bitmap);
+                comboImage.drawBitmap(filtr, 10, 10, null);
+            }
+
             picture.setImageBitmap(bitmap);
         }
     }
@@ -152,6 +190,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     String mCurrentPhotoPath;
+    String newCurrentPhotoPath;
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
@@ -189,8 +228,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
         }
-
     }
-
 
 }
