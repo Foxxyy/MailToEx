@@ -3,6 +3,7 @@ package com.android.foxxyy.mailtoex;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -26,6 +27,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -41,10 +44,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    Bitmap bitmap;
+
     public void send(View view) {
         String text = "All OK";
         EditText textOfMes = (EditText) findViewById(R.id.mesText);
         EditText emailOfMes = (EditText) findViewById(R.id.mesSubject);
+        ImageView imV = (ImageView) findViewById(R.id.picture);
         TextView mes = (TextView) findViewById(R.id.userMessages);
         CheckBox cbg = (CheckBox) findViewById(R.id.cbg);
         CheckBox cbb = (CheckBox) findViewById(R.id.cbb);
@@ -66,10 +72,14 @@ public class MainActivity extends AppCompatActivity {
 
         final Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:"));
-        intent.putExtra(Intent.EXTRA_TEXT, textOfMes.getText());
+        try {
+            intent.putExtra(Intent.EXTRA_TEXT, textOfMes.getText());
+            intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, "Title", null)));
+        } catch (Exception e) {
+
+        }
         intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.Subject));
-        intent.putExtra(Intent.EXTRA_EMAIL, emailOfMes.getText());
-        intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:" + mCurrentPhotoPath));
+        intent.putExtra(Intent.EXTRA_EMAIL, new String [] { emailOfMes.getText().toString() });
         if(intent.resolveActivity(getPackageManager()) != null){
             startActivity(intent);
         }
@@ -167,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
             bmOptions.inSampleSize = scaleFactor;
             bmOptions.inPurgeable = true;
 
-            Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions).copy(Bitmap.Config.ARGB_8888, true);
+            bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions).copy(Bitmap.Config.ARGB_8888, true);
             Bitmap filtr = BitmapFactory.decodeResource(getResources(), R.drawable.car).copy(Bitmap.Config.ARGB_8888, true);
             if (!witout.isChecked()) {
                 if (car.isChecked()) {
