@@ -14,4 +14,6 @@
     <string name="Dubai">Дубаи</string>
     <string name="Girl">Девушка</string>
     <string name="Without">Без модификаций</string>
+    <string name="takePic">Добавить изображение</string>
+    <string name="delPic">Отменить добавление</string>
 </resources>

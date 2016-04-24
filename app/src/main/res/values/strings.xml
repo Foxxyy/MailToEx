@@ -15,4 +15,6 @@
     <string name="Girl">girl</string>
     <string name="Car">car</string>
     <string name="Dubai">Dubai</string>
+    <string name="takePic">Add picture</string>
+    <string name="delPic">Cancel Adding</string>
 </resources>
