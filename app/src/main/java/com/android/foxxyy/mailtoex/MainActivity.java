@@ -74,8 +74,10 @@ public class MainActivity extends AppCompatActivity {
             intent.setData(Uri.parse("mailto:"));
             try {
                 intent.putExtra(Intent.EXTRA_TEXT, textOfMes.getText());
-                intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, "Title", null)));
-            } catch (Exception e) {
+                if (flagPhoto) {
+                    intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, "Title", null)));
+                }
+                } catch (Exception e) {
 
             }
             intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.Subject));
@@ -103,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
             params.width = -1;
             rl.setLayoutParams(params);
             add.setText(getString(R.string.delPic));
-            flagPhoto = true;
             RadioGroup rg = (RadioGroup) findViewById(R.id.radGr);
             rg.check(R.id.without);
         } else {
@@ -167,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
                 comboImage.drawBitmap(filtr, 10, 10, null);
             }
 
+            flagPhoto = true;
             picture.setImageBitmap(bitmap);
         }
     }
