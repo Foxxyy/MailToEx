@@ -164,7 +164,6 @@ public class MainActivity extends AppCompatActivity {
                 Canvas comboImage = new Canvas(bitmap);
                 comboImage.drawBitmap(filtr, 10, 10, null);
             }
-
             flagPhoto = true;
             picture.setImageBitmap(bitmap);
         }
