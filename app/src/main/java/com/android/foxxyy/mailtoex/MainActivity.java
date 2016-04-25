@@ -72,14 +72,11 @@ public class MainActivity extends AppCompatActivity {
 
             final Intent intent = new Intent(Intent.ACTION_SENDTO);
             intent.setData(Uri.parse("mailto:"));
-            try {
-                intent.putExtra(Intent.EXTRA_TEXT, textOfMes.getText());
-                if (flagPhoto) {
-                    intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, "Title", null)));
-                }
-                } catch (Exception e) {
-
+            try {} catch(Exception e) {}
+            if (flagPhoto) {
+                intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, "Title", null)));
             }
+            intent.putExtra(Intent.EXTRA_TEXT, textOfMes.getText());
             intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.Subject));
             intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailOfMes.getText().toString()});
             if (intent.resolveActivity(getPackageManager()) != null) {
@@ -153,8 +150,8 @@ public class MainActivity extends AppCompatActivity {
             bmOptions.inPurgeable = true;
 
             bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions).copy(Bitmap.Config.ARGB_8888, true);
-            Bitmap filtr = BitmapFactory.decodeResource(getResources(), R.drawable.car).copy(Bitmap.Config.ARGB_8888, true);
             if (!witout.isChecked()) {
+                Bitmap filtr = BitmapFactory.decodeResource(getResources(), R.drawable.car).copy(Bitmap.Config.ARGB_8888, true);
                 if (car.isChecked()) {
                     filtr = BitmapFactory.decodeResource(getResources(), R.drawable.car, bmOptions).copy(Bitmap.Config.ARGB_8888, true);
                 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="description">Напиши письмо своей бывшей</string>
     <string name="cb2">Вы в баре?</string>
     <string name="email">Введите email:</string>
     <string name="text">Введите сообщение:</string>
